@@ -1,0 +1,66 @@
+#TSP
+#MTSP
+#REPRODUCTION
+#MUTATION
+#MUTASI
+
+
+public int [][] Mutasi(int[][] arrayPopulasi){
+int[][] tmpArray = arrayPopulasi, tmpArrayRute = new
+int[tmpArray.length][panjangSegmenRute],
+tmpArrayTruk = new
+int[tmpArray.length][panjangSegmenTruk],
+finalKrom = new int[(int) Math.ceil(mr *
+populasi)][stringLength],
+kromFix = new int[finalKrom.length +
+tmpArray.length][stringLength];
+int[] tmpKrom = new int[tmpArray[0].length], tmpRute,
+tmpTruk;
+int parentAcak = 0, genRuteX = 0, genRuteY = 0, genTrukX
+= 0, genTrukY = 0, panjangTruk = panjangSegmenRute, incre = 0;
+for (int i = 0; i < tmpArray.length; i++) {
+for (int k = 0; k < tmpArray[0].length; k++) {
+kromFix[i][k] = tmpArray[i][k]; } }
+for (int w = 0; w < finalKrom.length; w++) {
+parentAcak = getRandom(0, tmpArray.length - 1);
+while (genRuteX == genRuteY) {
+genRuteX = getRandom(0, panjangSegmenRute - 1);
+genRuteY = getRandom(0, panjangSegmenRute - 1);
+}
+while (genTrukX == genTrukY) {
+genTrukX = getRandom(0, panjangSegmenTruk - 1);
+genTrukY = getRandom(0, panjangSegmenTruk - 1);
+}
+for (int i = 0; i < tmpArray.length; i++) {
+for (int k = 0; k < panjangSegmenRute; k++) {
+tmpArrayRute[i][k] = tmpArray[i][k];
+}
+}
+for (int i = 0; i < tmpArray.length; i++) {
+for (int k = 0; k < panjangSegmenTruk; k++) {
+tmpArrayTruk[i][k] =
+tmpArray[i][panjangTruk];
+panjangTruk++;
+}
+panjangTruk = panjangSegmenRute; }
+tmpRute = coreMutasi(tmpArrayRute, genRuteX,
+genRuteY, parentAcak);
+tmpTruk = coreMutasi(tmpArrayTruk, genTrukX,
+genTrukY, parentAcak);
+for (int k = 0; k < tmpRute.length; k++) {
+tmpKrom[k] = tmpRute[k]; }
+incre = 0;
+for (int k = panjangSegmenRute; k < tmpTruk.length +
+panjangSegmenRute; k++) {
+tmpKrom[k] = tmpTruk[incre];
+incre++;}
+for (int k = 0; k < finalKrom[0].length; k++) {
+finalKrom[w][k] = tmpKrom[k]; }
+parentAcak = genRuteX = genRuteY = genTrukX = genTrukY
+= 0; }
+incre = tmpArray.length;
+for (int i = 0; i < finalKrom.length; i++) {
+for (int k = 0; k < finalKrom[0].length; k++) {
+kromFix[incre][k] = finalKrom[i][k]; }
+incre++;}
+return kromFix;}
